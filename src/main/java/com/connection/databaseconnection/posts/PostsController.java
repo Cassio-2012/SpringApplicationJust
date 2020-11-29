@@ -50,7 +50,7 @@ public class PostsController {
     public ResponseEntity loadPostsSet() {
 
         try{
-            if (controller.setFirst()) {
+            if (controller.setFirst() >= 1) {
                 return new ResponseEntity(HttpStatus.OK);
             } else {
                 return new ResponseEntity(HttpStatus.NO_CONTENT);
