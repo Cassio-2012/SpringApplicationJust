@@ -55,7 +55,7 @@ public class PostsService {
         rangeAtualMobile = count.get(0);
 
         if (rangeAtual <1) {
-            return false;
+            return 0;
         }
 
         List<Post> result = entityManager.createQuery(
@@ -205,7 +205,7 @@ public class PostsService {
         List<Integer> only_id;
         Integer interessante, gratidao, inovador, all;
         Long idUser = id;
-        Long ultima = setFirst();
+        Integer ultima = setFirst();
 
         while (resultFinal.size() < rangeAtualMobile) {
 
