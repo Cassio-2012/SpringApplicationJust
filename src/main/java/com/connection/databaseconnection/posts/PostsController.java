@@ -77,12 +77,12 @@ public class PostsController {
 
     }
 
-    @GetMapping("/load/all")
+    @GetMapping("/load/all/{id}")
 
-    public ResponseEntity loadPostsMobile() {
+    public ResponseEntity loadPostsMobile(@PathVariable("id") Long id) {
 
         try{
-            List<PostModel> lista =  controller.loadAll();
+            List<PostModel> lista =  controller.loadAll(id);
             if (lista == null) {
                 return new ResponseEntity("A lista está vazia", HttpStatus.ACCEPTED);
             }

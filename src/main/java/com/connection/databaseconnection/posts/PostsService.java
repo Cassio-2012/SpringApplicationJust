@@ -46,7 +46,7 @@ public class PostsService {
     }
 
     @Transactional
-    public boolean setFirst() {
+    public Integer setFirst() {
         List<Long> count = entityManager.createQuery(
                 "select count(*) from Post ")
                 .getResultList();
@@ -67,7 +67,7 @@ public class PostsService {
 
         first = true;
 
-        return true;
+        return last;
 
     }
 
@@ -198,30 +198,32 @@ public class PostsService {
     }
 
     @Transactional
-    List<PostModel> loadAll() {
+    List<PostModel> loadAll(Long id) {
 
         List<Object[]> result;
         List<PostModel> resultFinal = new ArrayList<>();
         List<Integer> only_id;
         Integer interessante, gratidao, inovador, all;
+        Long idUser = id;
+        Long ultima = setFirst();
 
         while (resultFinal.size() < rangeAtualMobile) {
 
                     result = entityManager.createQuery(
                             "select p.id, p.conteudo, u.nome, p._data, p.isImg, p.imagem, u.photo, u.id from Post p inner join" +
                                     " p.usuario as u where p.id <= :range order by p.id desc ")
-                            .setParameter("range", last)
+                            .setParameter("range", ultima)
                             .setMaxResults(1)
                             .getResultList();
 
                     only_id = entityManager.createQuery(
                             "select p.id from Post p where p.id <= :range order by p.id desc ")
-                            .setParameter("range", last)
+                            .setParameter("range", ultima)
                             .setMaxResults(1)
                             .getResultList();
 
                     Integer reacao = reacoesService.validarReacao(
-                            (long) userController.getCurrentUser().getId(), (long)only_id.get(0));
+                            idUser, (long)only_id.get(0));
 
 //                    List<Long> one = entityManager.createQuery(
 //                            "select count(*) from Reacoes r where r.id_post = :post and r.tipo = 1 ")
