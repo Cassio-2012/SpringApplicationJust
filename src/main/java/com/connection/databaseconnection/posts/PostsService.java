@@ -256,6 +256,8 @@ public class PostsService {
 
                     resultFinal.add(dataBuilder(result, reacao, all));
 
+                    ultima --;
+
 
         }
 
